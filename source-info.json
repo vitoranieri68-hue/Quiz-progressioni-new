@@ -1,0 +1,13 @@
+{
+  "appVersion": "1.0.0",
+  "sourceFile": "dog_progressioni_aree_26giu2026_banca_dati.xlsx",
+  "sourceSha256": "fa1268849b803e4eeb3439ea11722c46f26e5d4bcecdd9873ac21571d2a8d384",
+  "questionCount": 180,
+  "subjectCounts": {
+    "criminal": 30,
+    "civil": 30,
+    "registry": 90,
+    "administrative": 30
+  },
+  "generatedOn": "2026-11-11"
+}

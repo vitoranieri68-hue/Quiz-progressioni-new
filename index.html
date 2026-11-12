@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8fafc">
+  <title>Quiz Progressioni 2026</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <a href="#" class="brand" id="brand-home">
+      <div class="brand-icon">Q</div>
+      <div class="brand-text"><strong>Quiz Progressioni</strong><small>2026</small></div>
+    </a>
+    <button class="btn btn-outline" id="install-button" hidden>Installa App</button>
+  </header>
+
+  <main class="container">
+    <!-- HOME VIEW -->
+    <div id="home-view">
+      <div class="hero">
+        <h1>Preparati al concorso.</h1>
+        <p>180 quesiti ufficiali. Scegli la materia, imposta il timer e metti alla prova la tua preparazione.</p>
+      </div>
+
+      <div class="home-grid">
+        <!-- Setup Panel -->
+        <div class="panel">
+          <div class="section-title"><span class="step-badge">1</span> Scegli il set di domande</div>
+          <div class="options-grid" id="subject-options">
+            <div class="option-card selected" data-subject="all">
+              <div class="option-icon">📚</div>
+              <div class="option-text"><strong>Tutte le materie</strong><small>180 quesiti</small></div>
+            </div>
+            <div class="option-card" data-subject="criminal">
+              <div class="option-icon">⚖️</div>
+              <div class="option-text"><strong>Procedura penale</strong><small>30 quesiti</small></div>
+            </div>
+            <div class="option-card" data-subject="civil">
+              <div class="option-icon">📜</div>
+              <div class="option-text"><strong>Procedura civile</strong><small>30 quesiti</small></div>
+            </div>
+            <div class="option-card" data-subject="registry">
+              <div class="option-icon">📁</div>
+              <div class="option-text"><strong>Servizi di cancelleria</strong><small>90 quesiti</small></div>
+            </div>
+            <div class="option-card" data-subject="administrative">
+              <div class="option-icon">🏛️</div>
+              <div class="option-text"><strong>Diritto amministrativo</strong><small>30 quesiti</small></div>
+            </div>
+          </div>
+
+          <div class="section-title"><span class="step-badge">2</span> Filtro domande</div>
+          <div class="segmented" id="filter-options">
+            <button class="selected" data-filter="all">Tutte le domande</button>
+            <button data-filter="new">Solo mai viste prima</button>
+          </div>
+          <p id="new-q-info" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px; text-align: center;">Hai esplorato <span id="seen-count">0</span>/180 domande totali.</p>
+
+          <div class="section-title"><span class="step-badge">3</span> Durata allenamento</div>
+          <div class="segmented" id="count-options">
+            <button data-count="10">10</button>
+            <button class="selected" data-count="20">20</button>
+            <button data-count="30">30</button>
+          </div>
+
+          <div class="section-title"><span class="step-badge">4</span> Timer (opzionale)</div>
+          <div class="segmented" id="timer-options">
+            <button class="selected" data-timer="0">Nessun limite</button>
+            <button data-timer="60">1 min / domanda</button>
+          </div>
+
+          <button class="btn btn-primary" id="start-button" style="margin-top: 32px; font-size: 1.125rem;">Avvia Allenamento</button>
+        </div>
+
+        <!-- Sidebar Widgets -->
+        <div>
+          <!-- Preferiti Widget -->
+          <div class="side-panel">
+            <h3>⭐ Domande Preferite</h3>
+            <p>Hai salvato <strong id="fav-count">0</strong> domande da ripassare con calma.</p>
+            <button class="btn btn-secondary" id="btn-quiz-fav" disabled>Avvia Quiz Preferiti</button>
+          </div>
+
+          <!-- Errori Widget -->
+          <div class="side-panel">
+            <h3>🔄 Ripassa gli Errori</h3>
+            <p>Ci sono <strong id="err-count">0</strong> domande a cui hai risposto in modo errato.</p>
+            <button class="btn btn-secondary" id="btn-quiz-err" disabled>Avvia Quiz Errori</button>
+          </div>
+
+          <!-- Storico Widget -->
+          <div class="side-panel">
+            <h3>📊 Storico Sessioni</h3>
+            <p>Le tue ultime prove di allenamento.</p>
+            <div class="stats-list" id="history-list">
+              <!-- JS Injected -->
+            </div>
+          </div>
+
+          <div style="text-align: center;">
+            <button class="btn btn-danger" style="font-size: 0.8rem;" id="reset-all-btn">Svuota Memoria / Cache App</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ VIEW -->
+    <div id="quiz-view" hidden>
+      <div class="quiz-header">
+        <button class="back-btn" id="quit-button">← Esci</button>
+        <div class="timer" id="timer-display" hidden>--:--</div>
+        <div style="font-weight: 700; color: var(--primary);" id="live-score">0 corrette</div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-meta">
+          <span id="progress-label">Domanda 1 di 20</span>
+          <span id="subject-label">Tutte le materie</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-bar-fill" style="width: 0%;"></div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="q-meta">
+          <span class="q-number" id="q-number-label">QUESITO 1</span>
+          <button class="star-btn" id="star-toggle" aria-label="Aggiungi ai preferiti">☆</button>
+        </div>
+        <h2 class="question-text" id="question-text"></h2>
+        
+        <div class="answers-grid" id="answer-list">
+          <!-- JS injected -->
+        </div>
+
+        <div class="feedback-box" id="feedback-box" hidden>
+          <div class="feedback-title" id="feedback-title">Risposta Corretta</div>
+          <div id="feedback-desc"></div>
+          <button class="explain-btn" id="explain-btn">Mostra spiegazione / motivazione</button>
+          <div class="explain-content" id="explain-content" hidden>
+            <em>La banca dati ufficiale non fornisce una spiegazione estesa per questo quesito. La risposta corretta è tratta fedelmente dal materiale del concorso.</em>
+          </div>
+        </div>
+
+        <div class="quiz-actions" id="next-action-container" hidden>
+          <button class="btn btn-primary" id="next-button">Prossima Domanda →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS VIEW -->
+    <div id="results-view" hidden>
+      <div class="results-hero">
+        <div class="score-circle" id="score-ring" style="--score: 0%;">
+          <div class="score-content">
+            <h2 id="score-percent">0%</h2>
+            <span>Risultato</span>
+          </div>
+        </div>
+        <h1 id="results-title">Risultato della prova</h1>
+        <p id="result-message" style="color: var(--text-muted); margin-top: 8px;">Ottimo lavoro.</p>
+        
+        <div class="stats-row">
+          <div class="stat-box">
+            <strong id="correct-total">0</strong>
+            <span>Corrette</span>
+          </div>
+          <div class="stat-box">
+            <strong id="wrong-total">0</strong>
+            <span>Errate</span>
+          </div>
+          <div class="stat-box">
+            <strong id="question-total">0</strong>
+            <span>Totale</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <button class="btn btn-primary" id="new-quiz-btn" style="width:auto;">Nuovo Quiz</button>
+          <button class="btn btn-secondary" id="review-mistakes-btn" style="width:auto;" hidden>Rivedi Errori</button>
+        </div>
+      </div>
+
+      <div id="mistakes-section" hidden>
+        <h2 style="margin-bottom: 16px;">Domande da ripassare</h2>
+        <div class="mistakes-list" id="mistakes-list">
+          <!-- JS injected -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" hidden>Aggiornato</div>
+  
+  <script src="questions.js?v=2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
